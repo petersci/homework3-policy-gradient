@@ -1,4 +1,4 @@
-# Homework2-Policy Gradient
+# Homework3-Policy Gradient
 
 In this homework, you will use a neural network to learn a parameterize policy that can select action without consulting a value function. A value function may still be used to learn the policy weights, but is not required for action selection. 
 
@@ -23,7 +23,7 @@ For further description, please see [here](https://gym.openai.com/envs/CartPole-
 - numpy
 - matplotlib
 - ipython
-All the codes you need to modified are in ```Lab3-PG.ipynb```. 
+All the codes you need to modified are in ```Lab3-policy-gradient.ipynb```. 
 
 We encourage you to install [Anaconda](https://www.anaconda.com/download/) or [Miniconda](https://conda.io/miniconda.html) in your laptop to avoid tedious dependencies problem.
 
