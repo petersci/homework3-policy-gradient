@@ -44,6 +44,8 @@ source deactivate cedl
 - []
 
 
+
 ## Other
+- Some of the codes are credited to Yen-Chen Lin :smile:
 - Office hour 2-3 pm in 資電館711 with [Yuan-Hong Liao](https://andrewliao11.github.io).
 
