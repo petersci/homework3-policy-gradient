@@ -40,6 +40,7 @@ source deactivate cedl
 - [60%] Problem 1,2,3: Policy gradient 
 - [20%] Problem 5: Baseline bootstrapping 
 - [10%] Problem 6: Generalized Advantage Estimation
+  - for lazy person, you can refer to [here](https://github.com/andrewliao11/Deep-Reinforcement-Learning-Survey/blob/master/papers/High-Dimensional%20Continuous%20Control%20Using%20Generalized%20Advantage%20Estimation.md)
 - [10%] Report 
 
 
