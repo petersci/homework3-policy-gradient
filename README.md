@@ -23,7 +23,6 @@ For further description, please see [here](https://gym.openai.com/envs/CartPole-
 - numpy
 - matplotlib
 - ipython
-All the codes you need to modified are in ```Lab3-policy-gradient.ipynb```. 
 
 We encourage you to install [Anaconda](https://www.anaconda.com/download/) or [Miniconda](https://conda.io/miniconda.html) in your laptop to avoid tedious dependencies problem.
 
@@ -38,10 +37,10 @@ source deactivate cedl
 
 ## TODO
 
-- []
-- []
-- []
-- []
+- [60%] Problem 1,2,3: Policy gradient 
+- [20%] Problem 5: Baseline bootstrapping 
+- [10%] Problem 6: Generalized Advantage Estimation
+- [10%] Report 
 
 
 
