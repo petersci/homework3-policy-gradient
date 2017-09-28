@@ -42,6 +42,7 @@ source deactivate cedl
 - [10%] Problem 6: Generalized Advantage Estimation
   - for lazy person, you can refer to [here](https://github.com/andrewliao11/Deep-Reinforcement-Learning-Survey/blob/master/papers/High-Dimensional%20Continuous%20Control%20Using%20Generalized%20Advantage%20Estimation.md)
 - [10%] Report 
+- [5%] Share you code and what you learn on github or  yourpersonal blogs, such as [this](https://andrewliao11.github.io/object/detection/2016/07/23/detection/)
 
 
 
