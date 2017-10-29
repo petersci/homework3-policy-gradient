@@ -30,6 +30,8 @@ class CategoricalPolicy(object):
         Sample solution is about 2~4 lines.
         """
         # YOUR CODE HERE >>>>>>
+        fc = tf.layers.dense(self._observations, hidden_dim, tf.tanh)
+        probs = tf.layers.dense(fc, out_dim, tf.nn.softmax)
         # <<<<<<<<
 
         # --------------------------------------------------
