@@ -74,6 +74,7 @@ class CategoricalPolicy(object):
         Sample solution is about 1~3 lines.
         """
         # YOUR CODE HERE >>>>>>
+        surr_loss = tf.reduce_mean(-log_prob * self._advantages)
         # <<<<<<<<
 
         grads_and_vars = self._opt.compute_gradients(surr_loss)
