@@ -32,8 +32,8 @@ def discount_bootstrap(x, discount_rate, b):
     Sample code should be about 3 lines
     """
     # YOUR CODE >>>>>>>>>>>>>>>>>>>
-    b.append(0)
-    b_t_next = b[1:]
+    b[0] = 0.0
+    b_t_next = np.roll(b,-1)
     y = x + discount_rate*b_t_next
     return y
     # <<<<<<<<<<<<<<<<<<<<<<<<<<<<
