@@ -1,53 +1,173 @@
-# Homework3-Policy Gradient
+# 江愷笙 <span style="color:black">(106062568)</span>
 
-In this homework, you will use a neural network to learn a parameterize policy that can select action without consulting a value function. A value function may still be used to learn the policy weights, but is not required for action selection. 
+# Homework3-Policy-Gradient report
 
-There are some advantage of the policy-based algorithms:
+TA: try to elaborate the algorithms that you implemented and any details worth mentioned.
 
-- Policy-based methods also offer useful ways of dealing with continuous action spaces
-- For some tasks, the policy function is simpler and thus easier to approximate.
+## Overview
 
+>Policy gradient methods are a type of reinforcement learning techniques that rely upon optimizing parametrized policies with respect to the expected return (long-term cumulative reward) by gradient descent. They do not suffer from many of the problems that have been marring traditional reinforcement learning approaches such as the lack of guarantees of a value function, the intractability problem resulting from uncertain state information and the complexity arising from continuous states & actions.
+## Implementation
 
-## Introduction
+In this homework we have to use policy gradient method to solve the cartpole problem.
+* Problem 1
 
-We will use ```CartPole-v0``` as environment in this homework. The following gif is the visualization of the CartPole: 
+In problem 1 we have to use tensorflow to construct DQN for the policy gradient. Here we have to add the softmax layer to obtain the probability distribution.
 
-<img src="https://cloud.githubusercontent.com/assets/7057863/19025154/dd94466c-8946-11e6-977f-2db4ce478cf3.gif" width="400" height="200" />
-
-For further description, please see [here](https://gym.openai.com/envs/CartPole-v0)
-
-## Setup
-- Python 3.5.3
-- OpenAI gym
-- **tensorflow**
-- numpy
-- matplotlib
-- ipython
-
-We encourage you to install [Anaconda](https://www.anaconda.com/download/) or [Miniconda](https://conda.io/miniconda.html) in your laptop to avoid tedious dependencies problem.
-
-**for lazy people:**
-
-```
-conda env create -f environment.yml
-source activate cedl
-# deactivate when you want to leave the environment
-source deactivate cedl
+```python
+fc = tf.layers.dense(self._observations, hidden_dim, tf.tanh)
+probs = tf.layers.dense(fc, out_dim, tf.nn.softmax)
 ```
 
-## TODO
+* Problem 2
 
-- [60%] Problem 1,2,3: Policy gradient 
-- [20%] Problem 5: Baseline bootstrapping 
-- [10%] Problem 6: Generalized Advantage Estimation
-  - for lazy person, you can refer to [here](https://github.com/andrewliao11/Deep-Reinforcement-Learning-Survey/blob/master/papers/High-Dimensional%20Continuous%20Control%20Using%20Generalized%20Advantage%20Estimation.md)
-- [10%] Report 
-- [5%] Bonus, share you code and what you learn on github or  yourpersonal blogs, such as [this](https://andrewliao11.github.io/object/detection/2016/07/23/detection/)
+In problem 2 we have to define our lost for the neural network, here the loss function is surrogate loss. However, we have to take care that for the optimizer in tensorflow, the task is to minimize the loss (gradient descent), but in policy gradient, we have to maximize the surrogate loss (gradient asscent). So here we take the negative number of the loss to minimize this negative number, which equals to maximize its positive number.
 
+<tr>
+<td>
+<img src="imgs/surrogate_loss.PNG"/>
+</td>
+</tr>
 
+```python
+surr_loss = tf.reduce_mean(-log_prob * self._advantages)
+```
 
-## Other
-- Deadline: 11/2 23:59, 2017
-- Some of the codes are credited to Yen-Chen Lin :smile:
-- Office hour 2-3 pm in 資電館711 with [Yuan-Hong Liao](https://andrewliao11.github.io).
-- Contact *andrewliao11@gmail.com* for bugs report or any questions.
+the surrogate loss should take the average number over N episode and each time step, so we use tf.reduce_mean to obtain the average number.
+
+* Problem 3
+
+Here in problem 3 we use baseline to reduce the variance. So we replace the loss function by the formula shown below.
+
+<tr>
+<td>
+<img src="imgs/baseline.PNG"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="imgs/baseline2.PNG"/>
+</td>
+</tr>
+
+```python
+a = r - b
+```
+
+* Problem 4
+
+In problem 4 we remove the baseline to see what is the difference between problem 3 and 4, I will discuss it in Results.
+
+To remove the baseline, just replace 
+
+```python
+baseline = LinearFeatureBaseline(env.spec)
+```
+
+by
+
+```python
+baseline = None
+```
+
+* Problem 5
+
+In problem 5 we have to implement a simple actor critic algorithm by replacing the first formula below in problem 3 with the second formula.
+
+<tr>
+<td>
+<img src="imgs/baseline2.PNG"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="imgs/actor.PNG"/>
+</td>
+</tr>
+
+We have to add the original reward to the discounted baseline at the next time step, so we have to left shift the baseline by 1.
+
+```python
+b[0] = 0.0			# let the first value to 0, after we shift left, it will be the last value
+b_t_next = np.roll(b,-1)	# shift left by 1
+y = x + discount_rate*b_t_next	# new R
+return y
+```
+
+* Problem 6
+
+Finally, we introduce generalized advantage estimation (GAE), which uses a hyperparameter lambda to comprimise two methods in problem 3 and 5.
+
+<tr>
+<td>
+<img src="imgs/GAE1.PNG"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="imgs/GAE2.PNG"/>
+</td>
+</tr>
+
+```python
+a = util.discount(a, self.discount_rate*LAMBDA)
+```
+
+## Installation
+* Anaconda
+* Ipython notebook
+* Python3.5
+* OpenAI gym
+* Tensorflow
+* to run the code, open Lab3-policy-gradient.ipynb by using Ipython notebook and execute each block.
+
+## Results
+* Problem 1~3
+
+<tr>
+<td>
+<img src="imgs/problem3_1.PNG" width="45%"/>
+<img src="imgs/problem3_2.PNG" width="45%"/>
+</td>
+</tr>
+
+* Problem 4
+
+<tr>
+<td>
+<img src="imgs/problem4_1.PNG" width="45%"/>
+<img src="imgs/problem4_2.PNG" width="45%"/>
+</td>
+</tr>
+
+Here we prove why baseline won't produce bias.
+
+<tr>
+<td>
+<img src="imgs/bias.PNG"/>
+</td>
+</tr>
+
+We add baseline by subtracting the baseline function B(s). Since the operation is linear, we can only consider the term in the figure above which is related to B(s). Since that the baseline function B(s) only depend on s, we can take it outside the sigma which sum over all the actions. And the summation over all the policies is equal to 1, so the gradient on a constant is 0, thus the baseline won't introduce bias. 
+
+By comparing problem 3 and 4, we can find that without baseline, the result will have bigger variance. Since we subtract the value function of the current state from the reward, we obtain the advantage which shows how much the current action is better than we usually do at this state. The baseline compensate the variance introduced from different states.
+
+* Problem 5
+
+<tr>
+<td>
+<img src="imgs/problem5_1.PNG" width="45%"/>
+<img src="imgs/problem5_2.PNG" width="45%"/>
+</td>
+</tr>
+
+* Problem 6
+
+<tr>
+<td>
+<img src="imgs/problem6_1.PNG" width="45%"/>
+<img src="imgs/problem6_2.PNG" width="45%"/>
+</td>
+</tr>
+
+In problem 6 we introduce a hyperparameter lambda, which value is between [0,1]. If lambda is 0, then this GAE algorithm will reduce to actor critic algorithm as we implemented in problem 5, who has lower variance but introduce bias. On the other hand, if lambda is 1, it will have higher variance, but it is more accurate on the value function (less bias). Thus lambda makes a compromise between bias and variance.
