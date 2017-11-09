@@ -24,11 +24,13 @@ probs = tf.layers.dense(fc, out_dim, tf.nn.softmax)
 
 In problem 2 we have to define our lost for the neural network, here the loss function is surrogate loss. However, we have to take care that for the optimizer in tensorflow, the task is to minimize the loss (gradient descent), but in policy gradient, we have to maximize the surrogate loss (gradient asscent). So here we take the negative number of the loss to minimize this negative number, which equals to maximize its positive number.
 
+<table border=1>
 <tr>
 <td>
 <img src="imgs/surrogate_loss.PNG"/>
 </td>
 </tr>
+</table>
 
 ```python
 surr_loss = tf.reduce_mean(-log_prob * self._advantages)
@@ -40,15 +42,72 @@ the surrogate loss should take the average number over N episode and each time s
 
 Here in problem 3 we use baseline to reduce the variance. So we replace the loss function by the formula shown below.
 
+<table border=2>
 <tr>
 <td>
 <img src="imgs/baseline.PNG"/>
 <img src="imgs/baseline2.PNG"/>
 </td>
 </tr>
+</table>
 
 ```python
 a = r - b
+```
+
+* Problem 4
+
+In problem 4 we remove the baseline to see what is the difference between problem 3 and 4, I will discuss it in Results.
+
+To remove the baseline, just replace 
+
+```python
+baseline = LinearFeatureBaseline(env.spec)
+```
+
+by
+
+```python
+baseline = None
+```
+
+* Problem 5
+
+In problem 5 we have to implement a simple actor critic algorithm by replacing the first formula below in problem 3 with the second formula.
+
+<table border=3>
+<tr>
+<td>
+<img src="imgs/baseline2.PNG"/>
+<img src="imgs/actor.PNG"/>
+</td>
+</tr>
+</table>
+
+We have to add the original reward to the discounted baseline at the next time step, so we have to left shift the baseline by 1.
+
+```python
+b[0] = 0.0			# let the first value to 0, after we shift left, it will be the last value
+b_t_next = np.roll(b,-1)	# shift left by 1
+y = x + discount_rate*b_t_next	# new R
+return y
+```
+
+* Problem 6
+
+Finally, we introduce generalized advantage estimation (GAE), which uses a hyperparameter lambda to comprimise two methods in problem 3 and 5.
+
+<table border=4>
+<tr>
+<td>
+<img src="imgs/GAE1.PNG"/>
+<img src="imgs/GAE2.PNG"/>
+</td>
+</tr>
+</table>
+
+```python
+a = util.discount(a, self.discount_rate*LAMBDA)
 ```
 
 ## Installation
@@ -60,41 +119,47 @@ a = r - b
 * to run the code, open Lab3-policy-gradient.ipynb by using Ipython notebook and execute each block.
 
 ## Results
-* Value Iteration
+* Problem 1~3
 
-Here we can see the action and value update for each state.
-
+<table border=5>
 <tr>
 <td>
-<img src="imgs/VI_1.PNG" width="19%"/>
-<img src="imgs/VI_2.PNG" width="19%"/>
-<img src="imgs/VI_3.PNG" width="19%"/>
-<img src="imgs/VI_4.PNG" width="19%"/>
-<img src="imgs/VI_5.PNG" width="19%"/>
-<img src="imgs/VI_6.PNG" width="19%"/>
-<img src="imgs/VI_7.PNG" width="19%"/>
-<img src="imgs/VI_8.PNG" width="19%"/>
-<img src="imgs/VI_9.PNG" width="19%"/>
-<img src="imgs/VI_10.PNG" width="19%"/>
-<img src="imgs/VI_plot.PNG"/>
+<img src="imgs/problem3_1.PNG"/>
+<img src="imgs/problem3_2.PNG"/>
 </td>
 </tr>
+</table>
 
-* Policy Iteration
+* Problem 4
 
+<table border=6>
 <tr>
 <td>
-<img src="imgs/PI_plot.PNG"/>
+<img src="imgs/problem4_1.PNG"/>
+<img src="imgs/problem4_2.PNG"/>
 </td>
 </tr>
+</table>
 
-* Tabular Q-learning
+* Problem 5
 
-By finishing the tabular Q-learning, we can see a crawling robot moving fast from the left to the right.
-
+<table border=7>
 <tr>
 <td>
-<img src="imgs/Q_1.PNG"/>
-<img src="imgs/Q_2.PNG"/>
+<img src="imgs/problem5_1.PNG"/>
+<img src="imgs/problem5_2.PNG"/>
 </td>
 </tr>
+</table>
+
+* Problem 6
+
+<table border=8>
+<tr>
+<td>
+<img src="imgs/problem6_1.PNG"/>
+<img src="imgs/problem6_2.PNG"/>
+</td>
+</tr>
+</table>
+
