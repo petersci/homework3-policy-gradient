@@ -1,6 +1,8 @@
 
 # 江愷笙 <span style="color:black">(106062568)</span>
 
+Here is the [github page](https://petersci.github.io/homework3-policy-gradient/) of my report.
+
 # Homework3-Policy-Gradient report
 
 TA: try to elaborate the algorithms that you implemented and any details worth mentioned.
@@ -155,13 +157,11 @@ a = util.discount(a, self.discount_rate*LAMBDA)
 
 Here we prove why baseline won't produce bias.
 
-<table border=7>
 <tr>
 <td>
 <img src="imgs/bias.PNG"/>
 </td>
 </tr>
-</table>
 
 We add baseline by subtracting the baseline function B(s). Since the operation is linear, we can only consider the term in the figure above which is related to B(s). Since that the baseline function B(s) only depend on s, we can take it outside the sigma which sum over all the actions. And the summation over all the policies is equal to 1, so the gradient on a constant is 0, thus the baseline won't introduce bias. 
 
@@ -169,7 +169,7 @@ By comparing problem 3 and 4, we can find that without baseline, the result will
 
 * Problem 5
 
-<table border=8>
+<table border=7>
 <tr>
 <td>
 <img src="imgs/problem5_1.PNG" width="45%"/>
@@ -180,7 +180,7 @@ By comparing problem 3 and 4, we can find that without baseline, the result will
 
 * Problem 6
 
-<table border=9>
+<table border=8>
 <tr>
 <td>
 <img src="imgs/problem6_1.PNG" width="45%"/>
@@ -189,6 +189,6 @@ By comparing problem 3 and 4, we can find that without baseline, the result will
 </tr>
 </table>
 
-In problem 6 we introduce a hyperparameter lambda, which value is between [0,1]. If lambda is 0, then this GAE algorithm will reduce to actor critic algorithm as we implemented in problem, who has lower variance but introduce bias. On the other hand, if lambda is 1, it will have higher variance, but it is more accurate on the value function (less bias). Thus lambda makes a compromise between bias and variance.
+In problem 6 we introduce a hyperparameter lambda, which value is between [0,1]. If lambda is 0, then this GAE algorithm will reduce to actor critic algorithm as we implemented in problem 5, who has lower variance but introduce bias. On the other hand, if lambda is 1, it will have higher variance, but it is more accurate on the value function (less bias). Thus lambda makes a compromise between bias and variance.
 
 
