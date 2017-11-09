@@ -165,7 +165,7 @@ Here we prove why baseline won't produce bias.
 
 We add baseline by subtracting the baseline function B(s). Since the operation is linear, we can only consider the term in the figure above which is related to B(s). Since that the baseline function B(s) only depend on s, we can take it outside the sigma which sum over all the actions. And the summation over all the policies is equal to 1, so the gradient on a constant is 0, thus the baseline won't introduce bias. 
 
-By comparing problem 3 and 4, we can find that without baseline, the result will have bigger variance.
+By comparing problem 3 and 4, we can find that without baseline, the result will have bigger variance. Since we subtract the value function of the current state from the reward, we obtain the advantage which shows how much the current action is better than we usually do at this state. The baseline compensate the variance introduced from different states.
 
 * Problem 5
 
