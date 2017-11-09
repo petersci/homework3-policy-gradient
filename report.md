@@ -124,8 +124,8 @@ a = util.discount(a, self.discount_rate*LAMBDA)
 <table border=5>
 <tr>
 <td>
-<img src="imgs/problem3_1.PNG"/>
-<img src="imgs/problem3_2.PNG"/>
+<img src="imgs/problem3_1.PNG" width="40%"/>
+<img src="imgs/problem3_2.PNG" width="40%"/>
 </td>
 </tr>
 </table>
@@ -135,8 +135,8 @@ a = util.discount(a, self.discount_rate*LAMBDA)
 <table border=6>
 <tr>
 <td>
-<img src="imgs/problem4_1.PNG"/>
-<img src="imgs/problem4_2.PNG"/>
+<img src="imgs/problem4_1.PNG" width="40%"/>
+<img src="imgs/problem4_2.PNG" width="40%"/>
 </td>
 </tr>
 </table>
@@ -160,8 +160,8 @@ By comparing problem 3 and 4, we can find that without baseline, the result will
 <table border=8>
 <tr>
 <td>
-<img src="imgs/problem5_1.PNG"/>
-<img src="imgs/problem5_2.PNG"/>
+<img src="imgs/problem5_1.PNG" width="40%"/>
+<img src="imgs/problem5_2.PNG" width="40%"/>
 </td>
 </tr>
 </table>
@@ -171,8 +171,8 @@ By comparing problem 3 and 4, we can find that without baseline, the result will
 <table border=9>
 <tr>
 <td>
-<img src="imgs/problem6_1.PNG"/>
-<img src="imgs/problem6_2.PNG"/>
+<img src="imgs/problem6_1.PNG" width="40%"/>
+<img src="imgs/problem6_2.PNG" width="40%"/>
 </td>
 </tr>
 </table>
