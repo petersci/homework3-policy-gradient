@@ -141,9 +141,23 @@ a = util.discount(a, self.discount_rate*LAMBDA)
 </tr>
 </table>
 
-* Problem 5
+Here we prove why baseline won't produce bias.
 
 <table border=7>
+<tr>
+<td>
+<img src="imgs/bias.PNG"/>
+</td>
+</tr>
+</table>
+
+We add baseline by subtracting the baseline function B(s). Since the operation is linear, we can only consider the term in the figure above which is related to B(s). Since that the baseline function B(s) only depend on s, we can take it outside the sigma which sum over all the actions. And the summation over all the policies is equal to 1, so the gradient on a constant is 0, thus the baseline won't introduce bias. 
+
+By comparing problem 3 and 4, we can find that without baseline, the result will have bigger variance.
+
+* Problem 5
+
+<table border=8>
 <tr>
 <td>
 <img src="imgs/problem5_1.PNG"/>
@@ -154,7 +168,7 @@ a = util.discount(a, self.discount_rate*LAMBDA)
 
 * Problem 6
 
-<table border=8>
+<table border=9>
 <tr>
 <td>
 <img src="imgs/problem6_1.PNG"/>
@@ -162,4 +176,7 @@ a = util.discount(a, self.discount_rate*LAMBDA)
 </td>
 </tr>
 </table>
+
+In problem 6 we introduce a hyperparameter lambda, which value is between [0,1]. If lambda is 0, then this GAE algorithm will reduce to actor critic algorithm as we implemented in problem, who has lower variance but introduce bias. On the other hand, if lambda is 1, it will have higher variance.
+
 
