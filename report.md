@@ -79,6 +79,7 @@ In problem 5 we have to implement a simple actor critic algorithm by replacing t
 <tr>
 <td>
 <img src="imgs/baseline2.PNG"/>
+
 <img src="imgs/actor.PNG"/>
 </td>
 </tr>
