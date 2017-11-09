@@ -46,6 +46,10 @@ Here in problem 3 we use baseline to reduce the variance. So we replace the loss
 <tr>
 <td>
 <img src="imgs/baseline.PNG"/>
+</td>
+</tr>
+<tr>
+<td>
 <img src="imgs/baseline2.PNG"/>
 </td>
 </tr>
@@ -105,6 +109,10 @@ Finally, we introduce generalized advantage estimation (GAE), which uses a hyper
 <tr>
 <td>
 <img src="imgs/GAE1.PNG"/>
+</td>
+</tr>
+<tr>
+<td>
 <img src="imgs/GAE2.PNG"/>
 </td>
 </tr>
