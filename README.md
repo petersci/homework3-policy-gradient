@@ -7,6 +7,7 @@ TA: try to elaborate the algorithms that you implemented and any details worth m
 ## Overview
 
 >Policy gradient methods are a type of reinforcement learning techniques that rely upon optimizing parametrized policies with respect to the expected return (long-term cumulative reward) by gradient descent. They do not suffer from many of the problems that have been marring traditional reinforcement learning approaches such as the lack of guarantees of a value function, the intractability problem resulting from uncertain state information and the complexity arising from continuous states & actions.
+
 ## Implementation
 
 In this homework we have to use policy gradient method to solve the cartpole problem.
@@ -23,11 +24,13 @@ probs = tf.layers.dense(fc, out_dim, tf.nn.softmax)
 
 In problem 2 we have to define our lost for the neural network, here the loss function is surrogate loss. However, we have to take care that for the optimizer in tensorflow, the task is to minimize the loss (gradient descent), but in policy gradient, we have to maximize the surrogate loss (gradient asscent). So here we take the negative number of the loss to minimize this negative number, which equals to maximize its positive number.
 
+<table border=1>
 <tr>
 <td>
 <img src="imgs/surrogate_loss.PNG"/>
 </td>
 </tr>
+</table>
 
 ```python
 surr_loss = tf.reduce_mean(-log_prob * self._advantages)
