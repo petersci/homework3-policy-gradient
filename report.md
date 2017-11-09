@@ -177,6 +177,6 @@ By comparing problem 3 and 4, we can find that without baseline, the result will
 </tr>
 </table>
 
-In problem 6 we introduce a hyperparameter lambda, which value is between [0,1]. If lambda is 0, then this GAE algorithm will reduce to actor critic algorithm as we implemented in problem, who has lower variance but introduce bias. On the other hand, if lambda is 1, it will have higher variance.
+In problem 6 we introduce a hyperparameter lambda, which value is between [0,1]. If lambda is 0, then this GAE algorithm will reduce to actor critic algorithm as we implemented in problem, who has lower variance but introduce bias. On the other hand, if lambda is 1, it will have higher variance, but it is more accurate on the value function (less bias). Thus lambda makes a compromise between bias and variance.
 
 
